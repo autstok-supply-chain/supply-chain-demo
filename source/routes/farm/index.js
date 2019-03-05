@@ -84,7 +84,7 @@ export function Farm(props) {
               key="undistributedIncome"
               render={(value, record) => (
                 <React.Fragment>
-                  <NumberFormat value={value} />
+                  ¥ <NumberFormat value={value} />
                   <br />
                   {record.key === '1' && <a href="javascript:;">Withdraw</a>}
                 </React.Fragment>
@@ -124,7 +124,12 @@ export function Farm(props) {
               key="date"
               render={(value) => <DateFormat value={value} />}
             />
-            <Column title="Amount" dataIndex="amount" key="amount" />
+            <Column
+              title="Amount"
+              dataIndex="amount"
+              key="amount"
+              render={(value) => <NumberFormat value={value} />}
+            />
           </Table>
         </div>
       </Layout.Content>

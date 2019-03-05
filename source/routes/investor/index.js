@@ -72,19 +72,31 @@ export function Investor() {
                 title="Price"
                 dataIndex="price"
                 key="price"
-                render={(value) => <NumberFormat value={value} />}
+                render={(value) => (
+                  <React.Fragment>
+                    ¥ <NumberFormat value={value} />
+                  </React.Fragment>
+                )}
               />
               <Column
                 title="Cap"
                 dataIndex="cap"
                 key="cap"
-                render={(value) => <NumberFormat value={value} />}
+                render={(value) => (
+                  <React.Fragment>
+                    ¥ <NumberFormat value={value} />
+                  </React.Fragment>
+                )}
               />
               <Column
                 title="Dividends paid"
                 dataIndex="paidDividends"
                 key="paidDividends"
-                render={(value) => <NumberFormat value={value} />}
+                render={(value) => (
+                  <React.Fragment>
+                    ¥ <NumberFormat value={value} />
+                  </React.Fragment>
+                )}
               />
             </Table>
           </section>
@@ -154,7 +166,11 @@ export function Investor() {
                 title="Total"
                 dataIndex="total"
                 key="total"
-                render={(value) => <NumberFormat value={value} />}
+                render={(value) => (
+                  <React.Fragment>
+                    ¥ <NumberFormat value={value} />
+                  </React.Fragment>
+                )}
               />
             </Table>
           </section>

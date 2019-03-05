@@ -129,8 +129,22 @@ export function Fund(props) {
               ]}
             >
               <Column title="Unit name" dataIndex="name" key="name" />
-              <Column title="Units owned" dataIndex="owned" key="owned" />
-              <Column title="Revenue" dataIndex="revenue" key="revenue" />
+              <Column
+                title="Units owned"
+                dataIndex="owned"
+                key="owned"
+                render={(value) => <NumberFormat value={value} />}
+              />
+              <Column
+                title="Revenue"
+                dataIndex="revenue"
+                key="revenue"
+                render={(value) => (
+                  <React.Fragment>
+                    ¥ <NumberFormat value={value} />
+                  </React.Fragment>
+                )}
+              />
             </Table>
           </section>
 
@@ -145,7 +159,7 @@ export function Fund(props) {
                   date: new Date('2019-02-16'),
                   unit: 'FARM03',
                   amount: '30%',
-                  total: numberFormatter.format(65000),
+                  total: 65000,
                 },
                 {
                   key: '2',
@@ -154,7 +168,7 @@ export function Fund(props) {
                   date: new Date('2019-01-23'),
                   unit: '',
                   amount: '95%',
-                  total: numberFormatter.format(35000),
+                  total: 35000,
                 },
               ]}
             >
@@ -173,7 +187,16 @@ export function Fund(props) {
               />
               <Column title="Unit" dataIndex="unit" key="unit" />
               <Column title="Amount" dataIndex="amount" key="amount" />
-              <Column title="Total" dataIndex="total" key="total" />
+              <Column
+                title="Total"
+                dataIndex="total"
+                key="total"
+                render={(value) => (
+                  <React.Fragment>
+                    ¥ <NumberFormat value={value} />
+                  </React.Fragment>
+                )}
+              />
             </Table>
           </section>
         </div>

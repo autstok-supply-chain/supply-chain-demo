@@ -25,7 +25,11 @@ function BidAskTable({ dataSource }) {
         title="Price"
         dataIndex="price"
         key="price"
-        render={(value) => <NumberFormat value={value} />}
+        render={(value) => (
+          <React.Fragment>
+            ¥ <NumberFormat value={value} />
+          </React.Fragment>
+        )}
       />
     </Table>
   );
@@ -184,7 +188,7 @@ export function Exchange() {
                   key="commodity"
                 />
                 <Column
-                  title="Quantity"
+                  title="Quantity (tons)"
                   dataIndex="quantity"
                   key="quantity"
                   render={(value) => <NumberFormat value={value} />}
@@ -193,7 +197,11 @@ export function Exchange() {
                   title="Price"
                   dataIndex="price"
                   key="price"
-                  render={(value) => <NumberFormat value={value} />}
+                  render={(value) => (
+                    <React.Fragment>
+                      ¥ <NumberFormat value={value} />
+                    </React.Fragment>
+                  )}
                 />
                 <Column
                   title="Exp. date"
