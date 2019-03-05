@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Table } from 'antd';
+import { Layout, Table, Button } from 'antd';
 import { NumberFormat, numberFormatter } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
@@ -34,11 +34,27 @@ export function Fund(props) {
             minHeight: 280,
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <section style={{ marginBottom: '2em' }}>
+            <header
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '1em',
+              }}
+            >
+              <h2 style={{ margin: 0, marginRight: '.5em' }}>
+                Tokens distribution
+              </h2>
+
+              <div>
+                <Button style={{ margin: '0 .5em' }}>Buy</Button>
+                <Button style={{ margin: '0 .5em' }}>Sell</Button>
+              </div>
+            </header>
+
             <Table
               showHeader={false}
               pagination={false}
-              title={() => 'Tokens distribution'}
               dataSource={[
                 {
                   key: '1',
@@ -69,10 +85,28 @@ export function Fund(props) {
                 render={(value) => <NumberFormat value={value} />}
               />
             </Table>
+          </section>
+
+          <section style={{ marginBottom: '2em' }}>
+            <header
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '1em',
+              }}
+            >
+              <h2 style={{ margin: 0, marginRight: '.5em' }}>
+                Undistributed income
+              </h2>
+
+              <div>
+                <Button style={{ margin: '0 .5em' }}>Collect income</Button>
+                <Button style={{ margin: '0 .5em' }}>Pay dividends</Button>
+              </div>
+            </header>
 
             <Table
               pagination={false}
-              title={() => 'Undistributed income'}
               dataSource={[
                 {
                   key: '1',
@@ -98,48 +132,50 @@ export function Fund(props) {
               <Column title="Units owned" dataIndex="owned" key="owned" />
               <Column title="Revenue" dataIndex="revenue" key="revenue" />
             </Table>
-          </div>
+          </section>
 
-          <h2 style={{ marginTop: '2em' }}>Transactions log</h2>
-          <Table
-            dataSource={[
-              {
-                key: '1',
-                address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A83a',
-                type: 'Asset income',
-                date: new Date('2019-02-16'),
-                unit: 'FARM03',
-                amount: '30%',
-                total: numberFormatter.format(65000),
-              },
-              {
-                key: '2',
-                address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A9a5',
-                type: 'Dividends payout',
-                date: new Date('2019-01-23'),
-                unit: '',
-                amount: '95%',
-                total: numberFormatter.format(35000),
-              },
-            ]}
-          >
-            <Column
-              title="Transaction"
-              dataIndex="address"
-              key="address"
-              render={(address) => <Address address={address} />}
-            />
-            <Column title="Operation type" dataIndex="type" key="type" />
-            <Column
-              title="Date"
-              dataIndex="date"
-              key="date"
-              render={(value) => <DateFormat value={value} />}
-            />
-            <Column title="Unit" dataIndex="unit" key="unit" />
-            <Column title="Amount" dataIndex="amount" key="amount" />
-            <Column title="Total" dataIndex="total" key="total" />
-          </Table>
+          <section>
+            <h2 style={{ marginTop: '2em' }}>Transactions log</h2>
+            <Table
+              dataSource={[
+                {
+                  key: '1',
+                  address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A83a',
+                  type: 'Asset income',
+                  date: new Date('2019-02-16'),
+                  unit: 'FARM03',
+                  amount: '30%',
+                  total: numberFormatter.format(65000),
+                },
+                {
+                  key: '2',
+                  address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A9a5',
+                  type: 'Dividends payout',
+                  date: new Date('2019-01-23'),
+                  unit: '',
+                  amount: '95%',
+                  total: numberFormatter.format(35000),
+                },
+              ]}
+            >
+              <Column
+                title="Transaction"
+                dataIndex="address"
+                key="address"
+                render={(address) => <Address address={address} />}
+              />
+              <Column title="Operation type" dataIndex="type" key="type" />
+              <Column
+                title="Date"
+                dataIndex="date"
+                key="date"
+                render={(value) => <DateFormat value={value} />}
+              />
+              <Column title="Unit" dataIndex="unit" key="unit" />
+              <Column title="Amount" dataIndex="amount" key="amount" />
+              <Column title="Total" dataIndex="total" key="total" />
+            </Table>
+          </section>
         </div>
       </Layout.Content>
 
