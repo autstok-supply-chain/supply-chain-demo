@@ -15,3 +15,5 @@ export const asset3 = web3Service.createContract(
   contract.abi,
   '0x6204DE89144f65F0FbB7d2299BE832AF59fF2a20',
 );
+
+export const assets = [asset1, asset2, asset3];

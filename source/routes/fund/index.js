@@ -34,6 +34,19 @@ export function Fund() {
     loadBalance();
   }
 
+  function handleCollectIncome() {
+    fundWorkflows
+      .collectIncome()
+      .then(() => {
+        loadUndistributedIncome();
+        loadBalance();
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Something went wrong');
+      });
+  }
+
   return (
     <Layout>
       <Layout.Header>
@@ -127,7 +140,7 @@ export function Fund() {
               <div>
                 <Button
                   style={{ margin: '0 .5em' }}
-                  onClick={fundWorkflows.collectIncome}
+                  onClick={handleCollectIncome}
                 >
                   Collect income
                 </Button>
