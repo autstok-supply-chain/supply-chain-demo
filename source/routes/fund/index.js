@@ -206,7 +206,7 @@ export function Fund() {
                   type: 'Units bought',
                   date: new Date('2019-01-23'),
                   unit: 'Avocado farm',
-                  amount: '35 000',
+                  amount: '62',
                   total: null,
                 },
               ]}
