@@ -31,4 +31,4 @@ function init() {
   ReactDOM.render(<App />, mountTarget);
 }
 
-init();
+window.addEventListener('load', init);

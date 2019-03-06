@@ -3,10 +3,28 @@ import { Layout, Table, Divider } from 'antd';
 import { NumberFormat } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
-
+import { useFarms } from './hooks/use-farms';
 const { Column, ColumnGroup } = Table;
 
-export function Farm(props) {
+import { farmWorkflows } from '../../workflows/farm';
+
+export function Farm() {
+  const { farmsState, loadFarms } = useFarms();
+
+  if (farmsState.dataState === 'idle') {
+    loadFarms();
+  }
+
+  function handleSell() {
+    farmWorkflows
+      .sell()
+      .then(loadFarms)
+      .catch((error) => {
+        console.error(error);
+        alert('Something went wrong, please try again');
+      });
+  }
+
   return (
     <Layout>
       <Layout.Header>
@@ -35,28 +53,7 @@ export function Farm(props) {
             minHeight: 280,
           }}
         >
-          <Table
-            dataSource={[
-              {
-                key: '1',
-                name: 'Avocado farm (me)',
-                supply: 70000,
-                undistributedIncome: 175000,
-              },
-              {
-                key: '2',
-                name: 'Fund 1',
-                supply: 20000,
-                undistributedIncome: 50000,
-              },
-              {
-                key: '3',
-                name: 'Fund 2',
-                supply: 10000,
-                undistributedIncome: 25000,
-              },
-            ]}
-          >
+          <Table dataSource={farmsState.data}>
             <ColumnGroup title="Units distribution">
               <Column title="Name" dataIndex="name" key="name" />
               <Column
@@ -71,7 +68,9 @@ export function Farm(props) {
                       <React.Fragment>
                         <a href="javascript:;">Buy</a>
                         <Divider type="vertical" />
-                        <a href="javascript:;">Sell</a>
+                        <a href="javascript:;" onClick={handleSell}>
+                          Sell
+                        </a>
                       </React.Fragment>
                     )}
                   </React.Fragment>

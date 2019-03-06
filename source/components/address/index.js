@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Tooltip } from 'antd';
 
 function truncate(address) {
@@ -8,3 +9,7 @@ function truncate(address) {
 export function Address({ address }) {
   return <Tooltip title={address}>{truncate(address)}</Tooltip>;
 }
+
+Address.propTypes = {
+  address: PropTypes.string.isRequired,
+};

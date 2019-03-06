@@ -1,12 +1,12 @@
 import React from 'react';
 import { Layout, Table, Button } from 'antd';
-import { NumberFormat, numberFormatter } from '../../components/number-format';
+import { NumberFormat } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
 
 const { Column } = Table;
 
-export function Fund(props) {
+export function Fund() {
   return (
     <Layout>
       <Layout.Header>

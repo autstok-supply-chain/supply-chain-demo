@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Layout, Table, Button } from 'antd';
 import { Address } from '../../components/address';
 import { DateFormat } from '../../components/date-format';
@@ -34,6 +35,10 @@ function BidAskTable({ dataSource }) {
     </Table>
   );
 }
+
+BidAskTable.propTypes = {
+  dataSource: PropTypes.array.isRequired,
+};
 
 export function Exchange() {
   return (

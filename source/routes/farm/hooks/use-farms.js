@@ -1,0 +1,50 @@
+import React from 'react';
+import web3 from 'web3';
+import { asset1 } from '../../../domains/assets';
+import { assetOwners } from '../../../domains/asset-owners';
+import { fund1, fund2, fund3 } from '../../../domains/funds';
+
+function loadAssetData(asset, walletAddress) {
+  return Promise.all([
+    asset.methods.balanceOf(walletAddress).call(),
+    asset.methods.dividendsRightsOf(asset.address).call(),
+  ]).then(([balance, undistributedIncome]) => ({
+    supply: web3.utils.fromWei(balance),
+    undistributedIncome,
+  }));
+}
+
+export function useFarms() {
+  const [state, setState] = React.useState({ dataState: 'idle', data: [] });
+
+  function loadFarms() {
+    setState({ dataState: 'loading' });
+
+    Promise.all([
+      loadAssetData(asset1, assetOwners[0]),
+      loadAssetData(asset1, fund1),
+      loadAssetData(asset1, fund2),
+      loadAssetData(asset1, fund3),
+    ])
+      .then(([data1, data2, data3, data4]) => {
+        setState({
+          dataState: 'loaded',
+          data: [
+            { key: '1', name: 'Avocado farm (me)', ...data1 },
+            { key: '2', name: 'Fund 1', ...data2 },
+            { key: '3', name: 'Fund 2', ...data3 },
+            { key: '4', name: 'Fund 3', ...data4 },
+          ],
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        setState({ dataState: 'failed' });
+      });
+  }
+
+  return {
+    farmsState: state,
+    loadFarms,
+  };
+}
