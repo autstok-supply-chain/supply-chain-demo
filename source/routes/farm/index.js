@@ -1,25 +1,45 @@
 import React from 'react';
-import { Layout, Table, Divider } from 'antd';
+import { Layout, Table, Divider, Modal } from 'antd';
 import { NumberFormat } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
-import { useFarms } from './hooks/use-farms';
-const { Column, ColumnGroup } = Table;
-
+import { SellForm } from './components/sell-form';
+import { funds } from '../../domains/funds';
 import { farmWorkflows } from '../../workflows/farm';
+import { useFarms } from './hooks/use-farms';
+import { useTransactions } from './hooks/use-transactions';
+
+const { Column, ColumnGroup } = Table;
 
 export function Farm() {
   const { farmsState, loadFarms } = useFarms();
+  const { transactionsState, loadTransactions } = useTransactions();
+  const [sellModalState, setSellModalState] = React.useState({
+    isOpen: false,
+  });
+  const [sellState, setSellState] = React.useState('idle');
+
+  if (transactionsState.dataState === 'idle') {
+    loadTransactions();
+  }
 
   if (farmsState.dataState === 'idle') {
     loadFarms();
   }
 
-  function handleSell() {
+  function handleSell({ amount, fundIndex }) {
+    setSellState('loading');
+
     farmWorkflows
-      .sell()
-      .then(loadFarms)
+      .sell({ amount, fund: funds[fundIndex] })
+      .then(() => {
+        loadFarms();
+        loadTransactions();
+        setSellModalState({ isOpen: false });
+        setSellState('loaded');
+      })
       .catch((error) => {
+        setSellState('failed');
         console.error(error);
         alert('Something went wrong, please try again');
       });
@@ -53,7 +73,10 @@ export function Farm() {
             minHeight: 280,
           }}
         >
-          <Table dataSource={farmsState.data}>
+          <Table
+            loading={farmsState.dataState === 'loading'}
+            dataSource={farmsState.data}
+          >
             <ColumnGroup title="Units distribution">
               <Column title="Name" dataIndex="name" key="name" />
               <Column
@@ -68,7 +91,10 @@ export function Farm() {
                       <React.Fragment>
                         <a href="javascript:;">Buy</a>
                         <Divider type="vertical" />
-                        <a href="javascript:;" onClick={handleSell}>
+                        <a
+                          href="javascript:;"
+                          onClick={() => setSellModalState({ isOpen: true })}
+                        >
                           Sell
                         </a>
                       </React.Fragment>
@@ -91,49 +117,54 @@ export function Farm() {
             />
           </Table>
 
-          <h2>Transactions log</h2>
-          <Table
-            dataSource={[
-              {
-                key: '1',
-                address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A83a',
-                type: 'Income',
-                date: new Date('2019-02-16'),
-                amount: 250000,
-              },
-              {
-                key: '2',
-                address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A9a5',
-                type: 'Funds withdrawal',
-                date: new Date('2019-01-25'),
-                amount: 190500,
-              },
-            ]}
-          >
-            <Column
-              title="Transaction"
-              dataIndex="address"
-              key="address"
-              render={(address) => <Address address={address} />}
-            />
-            <Column title="Operation type" dataIndex="type" key="type" />
-            <Column
-              title="Date"
-              dataIndex="date"
-              key="date"
-              render={(value) => <DateFormat value={value} />}
-            />
-            <Column
-              title="Amount"
-              dataIndex="amount"
-              key="amount"
-              render={(value) => <NumberFormat value={value} />}
-            />
-          </Table>
+          <section>
+            <h2>Transactions log</h2>
+            <Table
+              loading={transactionsState.dataState === 'loading'}
+              dataSource={transactionsState.data}
+            >
+              <Column
+                title="Transaction"
+                dataIndex="transactionHash"
+                key="transactionHash"
+                render={(txHash) => (
+                  <a
+                    href={`https://rinkeby.etherscan.io/tx/${txHash}`}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <Address address={txHash} />
+                  </a>
+                )}
+              />
+              <Column title="Operation type" dataIndex="type" key="type" />
+              <Column
+                title="Date"
+                dataIndex="date"
+                key="date"
+                render={(value) => <DateFormat value={value} />}
+              />
+              <Column
+                title="Amount"
+                dataIndex="amount"
+                key="amount"
+                render={(value) => <NumberFormat value={value} />}
+              />
+            </Table>
+          </section>
         </div>
       </Layout.Content>
 
       <Layout.Footer style={{ textAlign: 'center' }}>© 2019</Layout.Footer>
+
+      <Modal
+        title="Sell units"
+        visible={sellModalState.isOpen}
+        footer={null}
+        onCancel={() => setSellModalState({ isOpen: false })}
+      >
+        <SellForm isSaving={sellState === 'loading'} onSubmit={handleSell} />
+      </Modal>
     </Layout>
   );
 }

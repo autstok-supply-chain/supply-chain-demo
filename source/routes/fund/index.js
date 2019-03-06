@@ -4,6 +4,7 @@ import { NumberFormat } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
 import { useUndistributedIncome } from './hooks/use-undistributed-income';
+import { fundWorkflows } from '../../workflows/fund';
 
 const { Column } = Table;
 
@@ -111,8 +112,18 @@ export function Fund() {
               </h2>
 
               <div>
-                <Button style={{ margin: '0 .5em' }}>Collect income</Button>
-                <Button style={{ margin: '0 .5em' }}>Pay dividends</Button>
+                <Button
+                  style={{ margin: '0 .5em' }}
+                  onClick={fundWorkflows.collectIncome}
+                >
+                  Collect income
+                </Button>
+                <Button
+                  style={{ margin: '0 .5em' }}
+                  onClick={fundWorkflows.payDividends}
+                >
+                  Pay dividends
+                </Button>
               </div>
             </header>
 

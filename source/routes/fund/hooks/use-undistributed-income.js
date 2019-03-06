@@ -20,9 +20,9 @@ export function useUndistributedIncome() {
     setState({ dataState: 'loading' });
 
     Promise.all([
-      loadAssetData(asset1, fund1),
-      loadAssetData(asset2, fund1),
-      loadAssetData(asset3, fund1),
+      loadAssetData(asset1, fund1._address),
+      loadAssetData(asset2, fund1._address),
+      loadAssetData(asset3, fund1._address),
     ])
       .then(([data1, data2, data3]) => {
         setState({

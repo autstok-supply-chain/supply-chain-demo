@@ -18,13 +18,13 @@ export function useFarms() {
   const [state, setState] = React.useState({ dataState: 'idle', data: [] });
 
   function loadFarms() {
-    setState({ dataState: 'loading' });
+    setState({ dataState: 'loading', data: [] });
 
     Promise.all([
       loadAssetData(asset1, assetOwners[0]),
-      loadAssetData(asset1, fund1),
-      loadAssetData(asset1, fund2),
-      loadAssetData(asset1, fund3),
+      loadAssetData(asset1, fund1._address),
+      loadAssetData(asset1, fund2._address),
+      loadAssetData(asset1, fund3._address),
     ])
       .then(([data1, data2, data3, data4]) => {
         setState({
@@ -39,7 +39,7 @@ export function useFarms() {
       })
       .catch((error) => {
         console.error(error);
-        setState({ dataState: 'failed' });
+        setState({ dataState: 'failed', data: [] });
       });
   }
 
