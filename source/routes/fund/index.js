@@ -3,10 +3,20 @@ import { Layout, Table, Button } from 'antd';
 import { NumberFormat } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
+import { useUndistributedIncome } from './hooks/use-undistributed-income';
 
 const { Column } = Table;
 
 export function Fund() {
+  const {
+    undistributedIncomeState,
+    loadUndistributedIncome,
+  } = useUndistributedIncome();
+
+  if (undistributedIncomeState.dataState === 'idle') {
+    loadUndistributedIncome();
+  }
+
   return (
     <Layout>
       <Layout.Header>
@@ -25,6 +35,7 @@ export function Fund() {
           </div>
         </div>
       </Layout.Header>
+
       <Layout.Content style={{ padding: '0 50px' }}>
         <div
           style={{
@@ -107,26 +118,7 @@ export function Fund() {
 
             <Table
               pagination={false}
-              dataSource={[
-                {
-                  key: '1',
-                  name: 'FARM01',
-                  owned: 20000,
-                  revenue: 50000,
-                },
-                {
-                  key: '2',
-                  name: 'FARM02',
-                  owned: 15000,
-                  revenue: 0,
-                },
-                {
-                  key: '3',
-                  name: 'FARM03',
-                  owned: 30000,
-                  revenue: 65000,
-                },
-              ]}
+              dataSource={undistributedIncomeState.data}
             >
               <Column title="Unit name" dataIndex="name" key="name" />
               <Column

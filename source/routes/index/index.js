@@ -19,11 +19,11 @@ export const Index = withRouter(function Index({ history }) {
       </Menu.Item>
 
       <Menu.Item key="/farm" onClick={handleMenuClick}>
-        Farm
+        Farm 1
       </Menu.Item>
 
       <Menu.Item key="/fund" onClick={handleMenuClick}>
-        Fund
+        Fund 1
       </Menu.Item>
 
       <Menu.Item key="/investor" onClick={handleMenuClick}>

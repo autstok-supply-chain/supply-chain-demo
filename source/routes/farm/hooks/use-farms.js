@@ -7,10 +7,10 @@ import { fund1, fund2, fund3 } from '../../../domains/funds';
 function loadAssetData(asset, walletAddress) {
   return Promise.all([
     asset.methods.balanceOf(walletAddress).call(),
-    asset.methods.dividendsRightsOf(asset.address).call(),
+    asset.methods.dividendsRightsOf(walletAddress).call(),
   ]).then(([balance, undistributedIncome]) => ({
     supply: web3.utils.fromWei(balance),
-    undistributedIncome,
+    undistributedIncome: web3.utils.fromWei(undistributedIncome),
   }));
 }
 
