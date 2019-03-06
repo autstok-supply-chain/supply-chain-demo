@@ -7,9 +7,9 @@ function loadAssetData(asset, address) {
   return Promise.all([
     asset.methods.balanceOf(address).call(),
     asset.methods.dividendsRightsOf(address).call(),
-  ]).then(([balance, revenue]) => ({
+  ]).then(([balance, income]) => ({
     owned: web3.utils.fromWei(balance),
-    revenue: web3.utils.fromWei(revenue),
+    income: web3.utils.fromWei(income),
   }));
 }
 

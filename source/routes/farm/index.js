@@ -8,12 +8,14 @@ import { funds } from '../../domains/funds';
 import { farmWorkflows } from '../../workflows/farm';
 import { useFarms } from './hooks/use-farms';
 import { useTransactions } from './hooks/use-transactions';
+import { useBalance } from './hooks/use-balance';
 
 const { Column, ColumnGroup } = Table;
 
 export function Farm() {
   const { farmsState, loadFarms } = useFarms();
   const { transactionsState, loadTransactions } = useTransactions();
+  const { balanceState, loadBalance } = useBalance();
   const [sellModalState, setSellModalState] = React.useState({
     isOpen: false,
   });
@@ -25,6 +27,10 @@ export function Farm() {
 
   if (farmsState.dataState === 'idle') {
     loadFarms();
+  }
+
+  if (balanceState.dataState === 'idle') {
+    loadBalance();
   }
 
   function handleSell({ amount, fundIndex }) {
@@ -56,8 +62,12 @@ export function Farm() {
             color: '#fff',
           }}
         >
-          <div style={{ padding: '0 1em' }}>Contract: ¥ 250,000.00</div>
-          <div style={{ padding: '0 1em' }}>Wallet balance: ¥ 190,500.00</div>
+          <div style={{ padding: '0 1em' }}>
+            Contract: ¥ <NumberFormat value={balanceState.contract} />
+          </div>
+          <div style={{ padding: '0 1em' }}>
+            Wallet balance: ¥ <NumberFormat value={balanceState.wallet} />
+          </div>
           <div style={{ padding: '0 1em' }}>
             Max asset valuation: ¥ 820,000,000.00
           </div>

@@ -3,8 +3,10 @@ import { Layout, Table, Button } from 'antd';
 import { NumberFormat } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
-import { useUndistributedIncome } from './hooks/use-undistributed-income';
 import { fundWorkflows } from '../../workflows/fund';
+import { useBalance } from './hooks/use-balance';
+import { useUndistributedIncome } from './hooks/use-undistributed-income';
+import { useTokensDistribution } from './hooks/use-tokens-distribution';
 
 const { Column } = Table;
 
@@ -13,9 +15,23 @@ export function Fund() {
     undistributedIncomeState,
     loadUndistributedIncome,
   } = useUndistributedIncome();
+  const {
+    tokensDistribution,
+    loadTokensDistribution,
+  } = useTokensDistribution();
+
+  const { balanceState, loadBalance } = useBalance();
 
   if (undistributedIncomeState.dataState === 'idle') {
     loadUndistributedIncome();
+  }
+
+  if (tokensDistribution.dataState === 'idle') {
+    loadTokensDistribution();
+  }
+
+  if (balanceState.dataState === 'idle') {
+    loadBalance();
   }
 
   return (
@@ -29,7 +45,9 @@ export function Fund() {
             color: '#fff',
           }}
         >
-          <div style={{ padding: '0 1em' }}>Fund contract: ¥ 340,000.00</div>
+          <div style={{ padding: '0 1em' }}>
+            Fund contract: ¥ <NumberFormat value={balanceState.contract} />
+          </div>
           <div style={{ padding: '0 1em' }}>Fund wallet: ¥ 190,500.00</div>
           <div style={{ padding: '0 1em' }}>
             Fund assets valuation: ¥ 820,000,000.00
@@ -69,24 +87,19 @@ export function Fund() {
               pagination={false}
               dataSource={[
                 {
-                  key: '1',
-                  name: 'Own',
-                  amount: 5000,
-                },
-                {
                   key: '2',
                   name: 'Investor 1',
-                  amount: 42000,
+                  amount: tokensDistribution.data[0] || 0,
                 },
                 {
                   key: '3',
                   name: 'Investor 2',
-                  amount: 15000,
+                  amount: tokensDistribution.data[1] || 0,
                 },
                 {
                   key: '4',
                   name: 'Investor 3',
-                  amount: 38000,
+                  amount: tokensDistribution.data[2] || 0,
                 },
               ]}
             >
@@ -139,9 +152,9 @@ export function Fund() {
                 render={(value) => <NumberFormat value={value} />}
               />
               <Column
-                title="Revenue"
-                dataIndex="revenue"
-                key="revenue"
+                title="Income"
+                dataIndex="income"
+                key="income"
                 render={(value) => (
                   <React.Fragment>
                     ¥ <NumberFormat value={value} />
