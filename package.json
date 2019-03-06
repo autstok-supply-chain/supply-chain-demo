@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel ./source/index.html",
+    "clean": "rm -rf ./.cache && rm -rf ./build",
+    "prestart": "npm run clean",
+    "start": "parcel ./source/index.html --out-dir ./build",
+    "prebuild": "npm run clean",
+    "build": "parcel build ./source/index.html --out-dir ./build --no-source-maps",
     "test": "npm run test:lint",
     "test:lint": "eslint ./source"
   },
