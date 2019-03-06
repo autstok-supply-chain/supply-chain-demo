@@ -58,6 +58,7 @@ export function Fund() {
             color: '#fff',
           }}
         >
+          <h1 style={{ color: '#fff', margin: 0 }}>BANKEX</h1>
           <div style={{ padding: '0 1em' }}>
             Fund contract: ¥ <NumberFormat value={balanceState.contract} />
           </div>
@@ -183,21 +184,30 @@ export function Fund() {
               dataSource={[
                 {
                   key: '1',
-                  address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A83a',
-                  type: 'Asset income',
-                  date: new Date('2019-02-16'),
-                  unit: 'FARM03',
-                  amount: '30%',
-                  total: 65000,
-                },
-                {
-                  key: '2',
                   address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A9a5',
                   type: 'Dividends payout',
                   date: new Date('2019-01-23'),
                   unit: '',
                   amount: '95%',
                   total: 35000,
+                },
+                {
+                  key: '2',
+                  address: '0x5f5CF7881C8E64fCD26aB6426C88e5C2d660A83a',
+                  type: 'Asset income',
+                  date: new Date('2019-02-16'),
+                  unit: 'Avocado farm',
+                  amount: '30%',
+                  total: 65000,
+                },
+                {
+                  key: '3',
+                  address: '0x1d3CF7881C8E64fCD26aB6426C88e5C2d660A82',
+                  type: 'Units bought',
+                  date: new Date('2019-01-23'),
+                  unit: 'Avocado farm',
+                  amount: '35 000',
+                  total: null,
                 },
               ]}
             >
@@ -220,11 +230,13 @@ export function Fund() {
                 title="Total"
                 dataIndex="total"
                 key="total"
-                render={(value) => (
-                  <React.Fragment>
-                    ¥ <NumberFormat value={value} />
-                  </React.Fragment>
-                )}
+                render={(value) =>
+                  value && (
+                    <React.Fragment>
+                      ¥ <NumberFormat value={value} />
+                    </React.Fragment>
+                  )
+                }
               />
             </Table>
           </section>

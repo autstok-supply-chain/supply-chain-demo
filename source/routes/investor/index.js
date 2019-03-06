@@ -18,6 +18,7 @@ export function Investor() {
             color: '#fff',
           }}
         >
+          <h1 style={{ color: '#fff', margin: 0 }}>BANKEX</h1>
           <div style={{ padding: '0 1em' }}>Contract: ¥ 250,000.00</div>
           <div style={{ padding: '0 1em' }}>Wallet balance: ¥ 190,500.00</div>
           <div style={{ padding: '0 1em' }}>

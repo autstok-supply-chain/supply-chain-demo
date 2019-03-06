@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Table, Divider, Modal } from 'antd';
-import { NumberFormat } from '../../components/number-format';
+import { NumberFormat, numberFormatter } from '../../components/number-format';
 import { DateFormat } from '../../components/date-format';
 import { Address } from '../../components/address';
 import { SellForm } from './components/sell-form';
@@ -62,6 +62,7 @@ export function Farm() {
             color: '#fff',
           }}
         >
+          <h1 style={{ color: '#fff', margin: 0 }}>BANKEX</h1>
           <div style={{ padding: '0 1em' }}>
             Contract: ¥ <NumberFormat value={balanceState.contract} />
           </div>
@@ -131,7 +132,22 @@ export function Farm() {
             <h2>Transactions log</h2>
             <Table
               loading={transactionsState.dataState === 'loading'}
-              dataSource={transactionsState.data}
+              dataSource={transactionsState.data.concat([
+                {
+                  transactionHash:
+                    '0x41a8a36b9309764376f532c02b4833367c040d2ca07db9ae84858eae133859q1',
+                  type: 'Income withdrawed',
+                  date: new Date(),
+                  amount: 5000,
+                },
+                {
+                  transactionHash:
+                    '0xa4c8a36b9309764376f532c02b4833367c040d2ca07db9ae84858eae13385e93',
+                  type: 'Income received',
+                  date: new Date(),
+                  amount: 9000,
+                },
+              ])}
             >
               <Column
                 title="Transaction"
@@ -158,7 +174,17 @@ export function Farm() {
                 title="Amount"
                 dataIndex="amount"
                 key="amount"
-                render={(value) => <NumberFormat value={value} />}
+                render={(value, record) => {
+                  if (
+                    ['Income received', 'Income withdrawed'].includes(
+                      record.type,
+                    )
+                  ) {
+                    return `¥ ${numberFormatter.format(value)}`;
+                  }
+
+                  return numberFormatter.format(value);
+                }}
               />
             </Table>
           </section>
