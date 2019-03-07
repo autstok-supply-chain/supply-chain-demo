@@ -19,11 +19,9 @@ export function Investor() {
           }}
         >
           <h1 style={{ color: '#fff', margin: 0 }}>BANKEX</h1>
-          <div style={{ padding: '0 1em' }}>Contract: ¥ 250,000.00</div>
-          <div style={{ padding: '0 1em' }}>Wallet balance: ¥ 190,500.00</div>
-          <div style={{ padding: '0 1em' }}>
-            Max asset valuation: ¥ 820,000,000.00
-          </div>
+          <div style={{ padding: '0 1em' }}>Invested: ¥ 100 M</div>
+          <div style={{ padding: '0 1em' }}>Yield: 5%</div>
+          <div style={{ padding: '0 1em' }}>Total Earned uptodate: ¥ 5M</div>
         </div>
       </Layout.Header>
 

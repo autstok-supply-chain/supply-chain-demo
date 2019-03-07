@@ -53,10 +53,10 @@ export function Exchange() {
           }}
         >
           <h1 style={{ color: '#fff', margin: 0 }}>BANKEX</h1>
-          <div style={{ padding: '0 1em' }}>Contract: ¥ 250,000.00</div>
-          <div style={{ padding: '0 1em' }}>Wallet balance: ¥ 190,500.00</div>
+          <div style={{ padding: '0 1em' }}>Contract: ¥ 2,457,300</div>
+          <div style={{ padding: '0 1em' }}>Wallet balance: ¥ 43,825,750</div>
           <div style={{ padding: '0 1em' }}>
-            Max asset valuation: ¥ 820,000,000.00
+            Max asset Valuation: ¥ 820,000,000
           </div>
         </div>
       </Layout.Header>
@@ -92,19 +92,19 @@ export function Exchange() {
                     {
                       key: '1',
                       qty: 75,
-                      exp: new Date('2019-07-20'),
+                      exp: new Date(),
                       price: 72800,
                     },
                     {
                       key: '2',
                       qty: 30,
-                      exp: new Date('2019-06-01'),
+                      exp: new Date(),
                       price: 73550,
                     },
                     {
                       key: '3',
                       qty: 108,
-                      exp: new Date('2019-08-13'),
+                      exp: new Date(),
                       price: 73900,
                     },
                   ]}
@@ -123,25 +123,25 @@ export function Exchange() {
                     {
                       key: '1',
                       qty: 16,
-                      exp: new Date('2019-06-15'),
+                      exp: new Date(),
                       price: 71330,
                     },
                     {
                       key: '2',
                       qty: 45,
-                      exp: new Date('2020-01-01'),
+                      exp: new Date(),
                       price: 70543,
                     },
                     {
                       key: '3',
                       qty: 24,
-                      exp: new Date('2019-08-25'),
+                      exp: new Date(),
                       price: 70120,
                     },
                     {
                       key: '4',
                       qty: 62,
-                      exp: new Date('2020-01-01'),
+                      exp: new Date(),
                       price: 70060,
                     },
                   ]}
@@ -159,7 +159,7 @@ export function Exchange() {
                     commodity: 'Avocado',
                     quantity: 30,
                     price: 72500,
-                    expDate: new Date('2019-10-04'),
+                    expDate: new Date(),
                     status: 'delivery',
                   },
                   {
@@ -168,7 +168,7 @@ export function Exchange() {
                     commodity: 'Avocado',
                     quantity: 45,
                     price: 71350,
-                    expDate: new Date('2019-11-15'),
+                    expDate: new Date(),
                     status: 'received',
                   },
                   {
@@ -177,7 +177,7 @@ export function Exchange() {
                     commodity: 'Avocado',
                     quantity: 73,
                     price: 72430,
-                    expDate: new Date('2019-06-01'),
+                    expDate: new Date(),
                     status: 'paid',
                   },
                 ]}
