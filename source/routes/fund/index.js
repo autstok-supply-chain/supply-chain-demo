@@ -222,6 +222,15 @@ export function Fund() {
                   amount: '62',
                   total: null,
                 },
+                {
+                  key: '3',
+                  address: '0xc84CF7881C8E64fCD26aB6426C88e5C2d660427',
+                  type: 'Tokens sell',
+                  date: new Date(),
+                  unit: 'Investor 1',
+                  amount: '100',
+                  total: null,
+                },
               ]}
             >
               <Column
