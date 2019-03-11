@@ -2,8 +2,6 @@ import { web3Service } from '../../domains/web3/service';
 import { fund1 } from '../../domains/funds';
 import { assets } from '../../domains/assets';
 
-window.fund1 = fund1;
-
 export function collectIncome() {
   return web3Service.getWalletAddress().then((walletAddress) => {
     return Promise.all(

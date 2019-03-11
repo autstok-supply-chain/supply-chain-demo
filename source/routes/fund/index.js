@@ -47,6 +47,19 @@ export function Fund() {
       });
   }
 
+  function handlePayDividends() {
+    fundWorkflows
+      .payDividends()
+      .then(() => {
+        loadUndistributedIncome();
+        loadBalance();
+      })
+      .catch((error) => {
+        console.error(error);
+        alert('Something went wrong');
+      });
+  }
+
   return (
     <Layout>
       <Layout.Header>
@@ -147,7 +160,7 @@ export function Fund() {
                 </Button>
                 <Button
                   style={{ margin: '0 .5em' }}
-                  onClick={fundWorkflows.payDividends}
+                  onClick={handlePayDividends}
                 >
                   Pay dividends
                 </Button>

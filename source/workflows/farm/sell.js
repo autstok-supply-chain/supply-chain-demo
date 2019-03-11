@@ -1,12 +1,7 @@
 import web3 from 'web3';
 import { web3Service } from '../../domains/web3/service';
 import { asset1 } from '../../domains/assets';
-import { fund1 } from '../../domains/funds';
 import { assetOwners } from '../../domains/asset-owners';
-
-window.asset1 = asset1;
-window.fund1 = fund1;
-window.w3 = web3;
 
 export function sell({ amount, fund }) {
   return web3Service.getWalletAddress().then((walletAddress) => {
